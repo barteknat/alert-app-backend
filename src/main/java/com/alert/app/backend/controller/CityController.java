@@ -24,11 +24,6 @@ public class CityController {
         return service.getById(id);
     }
 
-    @PostMapping
-    public CityDto create(@RequestParam String name) {
-        return service.create(name);
-    }
-
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable long id) {
         service.delete(id);

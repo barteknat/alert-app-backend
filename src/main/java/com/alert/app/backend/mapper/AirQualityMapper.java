@@ -13,16 +13,18 @@ public class AirQualityMapper {
     public AirQuality mapToAirQuality(AirQualityDto airQualityDto) {
         return AirQuality.builder()
                 .id(airQualityDto.getId())
-                .name(airQualityDto.getName())
-                .airQualityIndex(airQualityDto.getAirQualityIndex())
+                .date(airQualityDto.getDate())
+                .level(airQualityDto.getLevel())
+                .levelName(airQualityDto.getLevelName())
                 .build();
     }
 
     public AirQualityDto mapToAirQualityDto(AirQuality airQuality) {
         return AirQualityDto.builder()
                 .id(airQuality.getId())
-                .name(airQuality.getName())
-                .airQualityIndex(airQuality.getAirQualityIndex())
+                .date(airQuality.getDate())
+                .level(airQuality.getLevel())
+                .levelName(airQuality.getLevelName())
                 .build();
     }
 

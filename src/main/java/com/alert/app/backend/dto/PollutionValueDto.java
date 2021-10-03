@@ -5,13 +5,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class StationDto {
+public class PollutionValueDto {
 
     private long id;
-    private String name;
-    private String street;
+    private LocalDateTime date;
+    private double value;
 }

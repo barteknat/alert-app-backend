@@ -12,8 +12,6 @@ import lombok.NoArgsConstructor;
 public class GiosApiCityDto {
 
     private long id;
-
     private String name;
-
     private GiosApiCommuneDto commune;
 }

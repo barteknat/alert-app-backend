@@ -12,20 +12,5 @@ import lombok.NoArgsConstructor;
 public class PollutionDto {
 
     private long id;
-
     private String name;
-
-    private String sulphurDioxide;
-
-    private String nitrogenDioxide;
-
-    private String pM10;
-
-    private String pM2_5;
-
-    private String carbonMonoxide;
-
-    private String benzene;
-
-    private String ozone;
 }

@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -12,8 +14,7 @@ import lombok.NoArgsConstructor;
 public class AirQualityDto {
 
     private long id;
-
-    private String name;
-
-    private String airQualityIndex;
+    private LocalDateTime date;
+    private long level;
+    private String levelName;
 }

@@ -12,8 +12,6 @@ import lombok.NoArgsConstructor;
 public class GiosApiCommuneDto {
 
     private String communeName;
-
     private String districtName;
-
     private String provinceName;
 }

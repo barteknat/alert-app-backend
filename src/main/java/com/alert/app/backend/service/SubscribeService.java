@@ -22,11 +22,8 @@ import static com.alert.app.backend.status.Status.SUBSCRIBING;
 public class SubscribeService {
 
     private final SubscribeMapper subscribeMapper;
-
     private final SubscribeRepository subscribeRepository;
-
     private final UserRepository userRepository;
-
     private final CityRepository cityRepository;
 
     public List<SubscribeDto> getAll() {

@@ -19,7 +19,6 @@ import static com.alert.app.backend.status.Status.NOT_SUBSCRIBING;
 public class UserService {
 
     private final UserMapper userMapper;
-
     private final UserRepository userRepository;
 
     public List<UserDto> getAll() {
@@ -53,6 +52,4 @@ public class UserService {
     public void delete(long id) {
         userRepository.deleteById(id);
     }
-
-
 }

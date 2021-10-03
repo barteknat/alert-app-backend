@@ -14,13 +14,6 @@ public class PollutionMapper {
         return Pollution.builder()
                 .id(pollutionDto.getId())
                 .name(pollutionDto.getName())
-                .sulphurDioxide(pollutionDto.getSulphurDioxide())
-                .nitrogenDioxide(pollutionDto.getNitrogenDioxide())
-                .pM10(pollutionDto.getPM10())
-                .pM2_5(pollutionDto.getPM2_5())
-                .carbonMonoxide(pollutionDto.getCarbonMonoxide())
-                .benzene(pollutionDto.getBenzene())
-                .ozone(pollutionDto.getOzone())
                 .build();
     }
 
@@ -28,13 +21,6 @@ public class PollutionMapper {
         return PollutionDto.builder()
                 .id(pollution.getId())
                 .name(pollution.getName())
-                .sulphurDioxide(pollution.getSulphurDioxide())
-                .nitrogenDioxide(pollution.getNitrogenDioxide())
-                .pM10(pollution.getPM10())
-                .pM2_5(pollution.getPM2_5())
-                .carbonMonoxide(pollution.getCarbonMonoxide())
-                .benzene(pollution.getBenzene())
-                .ozone(pollution.getOzone())
                 .build();
     }
 
@@ -45,5 +31,4 @@ public class PollutionMapper {
         }
         return pollutionDtoList;
     }
-
 }

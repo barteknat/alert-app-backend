@@ -5,16 +5,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GiosApiStationDto {
+public class GiosApiPollutionDto {
 
-    private long id;
-    private String stationName;
-    private String gegrLat;
-    private String gegrLon;
-    private GiosApiCityDto city;
-    private String addressStreet;
+    private String key;
+    private List<GiosApiPollutionValueDto> values;
 }

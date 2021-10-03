@@ -24,11 +24,6 @@ public class SensorController {
         return service.getById(id);
     }
 
-    @PostMapping
-    public SensorDto create(@RequestParam long stationId, @RequestParam String name) {
-        return service.create(stationId, name);
-    }
-
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable long id) {
         service.delete(id);

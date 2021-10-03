@@ -1,13 +1,12 @@
 package com.alert.app.backend.api.gios.client;
 
 import com.alert.app.backend.api.gios.config.GiosConfig;
+import com.alert.app.backend.api.gios.dto.GiosApiAirQualityDto;
+import com.alert.app.backend.api.gios.dto.GiosApiPollutionDto;
+import com.alert.app.backend.api.gios.dto.GiosApiSensorDto;
 import com.alert.app.backend.api.gios.dto.GiosApiStationDto;
-import com.alert.app.backend.api.gios.mapper.GiosMapper;
-import com.alert.app.backend.repository.CityRepository;
-import com.alert.app.backend.repository.StationRepository;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
@@ -17,39 +16,83 @@ import java.net.URI;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class GiosClient {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(GiosClient.class);
     private final RestTemplate restTemplate = new RestTemplate();
     private final GiosConfig giosConfig;
-    private final StationRepository stationRepository;
-    private final CityRepository cityRepository;
-    private final GiosMapper giosMapper;
 
     public List<GiosApiStationDto> getGiosStations() {
         try {
-            List<GiosApiStationDto> giosApiStationDtoList = Optional.ofNullable(restTemplate.getForObject(getUri(), GiosApiStationDto[].class))
+            List<GiosApiStationDto> giosApiStationDtoList = Optional.ofNullable(restTemplate.getForObject(getGetStationsUri(), GiosApiStationDto[].class))
                     .map(Arrays::asList)
                     .orElse(Collections.emptyList())
                     .stream()
                     .filter(giosApiStationDto -> Objects.nonNull(giosApiStationDto.getId()) && Objects.nonNull(giosApiStationDto.getStationName()))
                     .collect(Collectors.toList());
             System.out.println(giosApiStationDtoList);
-            for (GiosApiStationDto giosApiStationDto : giosApiStationDtoList) {
-                stationRepository.save(giosMapper.mapToStation(giosApiStationDto));
-                cityRepository.save(giosMapper.mapToCity(giosApiStationDto));
-            }
             return giosApiStationDtoList;
         } catch (RestClientException e) {
-            LOGGER.error(e.getMessage(), e);
+            log.error(e.getMessage(), e);
             return Collections.emptyList();
         }
     }
 
-    private URI getUri() {
+    private URI getGetStationsUri() {
         return UriComponentsBuilder.fromHttpUrl(giosConfig.getGiosApiEndpoint() + "/station/findAll")
+                .build().encode().toUri();
+    }
+
+    public List<GiosApiSensorDto> getGiosSensors(long stationId) {
+        try {
+            List<GiosApiSensorDto> giosApiSensorDtoList = Optional.ofNullable(restTemplate.getForObject(getGetSensorsUri(stationId), GiosApiSensorDto[].class))
+                    .map(Arrays::asList)
+                    .orElse(Collections.emptyList())
+                    .stream()
+                    .filter(giosApiSensorDto -> Objects.nonNull(giosApiSensorDto.getId()) && Objects.nonNull(giosApiSensorDto.getParam()))
+                    .collect(Collectors.toList());
+            System.out.println(giosApiSensorDtoList);
+            return giosApiSensorDtoList;
+        } catch (RestClientException e) {
+            log.error(e.getMessage(), e);
+            return Collections.emptyList();
+        }
+    }
+
+    private URI getGetSensorsUri(long stationId) {
+        return UriComponentsBuilder.fromHttpUrl(giosConfig.getGiosApiEndpoint() + "/station/sensors/" + stationId)
+                .build().encode().toUri();
+    }
+
+    public GiosApiPollutionDto getGiosPollution(long sensorId) {
+        try {
+            return Optional.ofNullable(restTemplate.getForObject(getGetPollutionUri(sensorId), GiosApiPollutionDto.class))
+                    .orElse(new GiosApiPollutionDto());
+        } catch (RestClientException e) {
+            log.error(e.getMessage(), e);
+            return new GiosApiPollutionDto();
+        }
+    }
+
+    private URI getGetPollutionUri(long sensorId) {
+        return UriComponentsBuilder.fromHttpUrl(giosConfig.getGiosApiEndpoint() + "/data/getData/" + sensorId)
+                .build().encode().toUri();
+    }
+
+    public GiosApiAirQualityDto getGiosAirQuality(long stationId) {
+        try {
+            return Optional.ofNullable(restTemplate.getForObject(getGetAirQualityUri(stationId), GiosApiAirQualityDto.class))
+                    .orElse(new GiosApiAirQualityDto());
+        } catch (RestClientException e) {
+            log.error(e.getMessage(), e);
+            return new GiosApiAirQualityDto();
+        }
+    }
+
+    private URI getGetAirQualityUri(long stationId) {
+        return UriComponentsBuilder.fromHttpUrl(giosConfig.getGiosApiEndpoint() + "/aqindex/getIndex/" + stationId)
                 .build().encode().toUri();
     }
 }

@@ -9,12 +9,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GiosApiStationDto {
+public class GiosApiSensorParamDto {
 
-    private long id;
-    private String stationName;
-    private String gegrLat;
-    private String gegrLon;
-    private GiosApiCityDto city;
-    private String addressStreet;
+    private String paramName;
+    private String paramFormula;
+    private String paramCode;
+    private long idParam;
 }

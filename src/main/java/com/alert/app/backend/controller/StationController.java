@@ -24,11 +24,6 @@ public class StationController {
         return service.getById(id);
     }
 
-    @PostMapping
-    public StationDto create(@RequestParam long cityId, @RequestParam String name) {
-        return service.create(cityId, name);
-    }
-
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable long id) {
         service.delete(id);

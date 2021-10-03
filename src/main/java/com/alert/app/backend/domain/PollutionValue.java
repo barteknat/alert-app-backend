@@ -13,15 +13,14 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Data
 @Entity
-public class AirQuality {
+public class PollutionValue {
 
     @Id
     @GeneratedValue
     private long id;
     private LocalDateTime date;
-    private long level;
-    private String levelName;
+    private double value;
     @ManyToOne
-    @JoinColumn(name = "STATION_ID")
-    private Station station;
+    @JoinColumn(name = "POLLUTION_ID")
+    private Pollution pollution;
 }

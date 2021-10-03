@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class SensorDto {
 
     private long id;
-
     private String name;
+    private String formula;
+    private String code;
 }

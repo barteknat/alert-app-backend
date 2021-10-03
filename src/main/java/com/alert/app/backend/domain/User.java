@@ -10,8 +10,6 @@ import javax.persistence.*;
 
 import java.time.LocalDateTime;
 
-import static com.alert.app.backend.status.Status.NOT_SUBSCRIBING;
-
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,16 +18,12 @@ import static com.alert.app.backend.status.Status.NOT_SUBSCRIBING;
 public class User {
 
     @Id
+    @GeneratedValue
     private long id;
-
     private String username;
-
     private String email;
-
     private String password;
-
     @Enumerated(EnumType.STRING)
     private Status status;
-
     private LocalDateTime created;
 }
