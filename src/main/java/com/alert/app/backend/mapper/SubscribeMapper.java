@@ -10,12 +10,6 @@ import java.util.List;
 @Service
 public class SubscribeMapper {
 
-    public Subscribe mapToSubscribe(SubscribeDto subscribeDto) {
-        return Subscribe.builder()
-                .id(subscribeDto.getId())
-                .build();
-    }
-
     public SubscribeDto mapToSubscribeDto(Subscribe subscribe) {
         return SubscribeDto.builder()
                 .id(subscribe.getId())

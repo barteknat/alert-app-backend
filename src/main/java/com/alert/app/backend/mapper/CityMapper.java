@@ -10,13 +10,6 @@ import java.util.List;
 @Service
 public class CityMapper {
 
-    public City mapToCity(CityDto cityDto) {
-        return City.builder()
-                .id(cityDto.getId())
-                .name(cityDto.getName())
-                .build();
-    }
-
     public CityDto mapToCityDto(City city) {
         return CityDto.builder()
                 .id(city.getId())

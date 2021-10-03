@@ -10,13 +10,6 @@ import java.util.List;
 @Service
 public class SensorMapper {
 
-    public Sensor mapToSensor(SensorDto sensorDto) {
-        return Sensor.builder()
-                .id(sensorDto.getId())
-                .name(sensorDto.getName())
-                .build();
-    }
-
     public SensorDto mapToSensorDto(Sensor sensor) {
         return SensorDto.builder()
                 .id(sensor.getId())

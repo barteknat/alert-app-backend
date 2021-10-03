@@ -10,13 +10,6 @@ import java.util.List;
 @Service
 public class StationMapper {
 
-    public Station mapToStation(StationDto stationDto) {
-        return Station.builder()
-                .id(stationDto.getId())
-                .name(stationDto.getName())
-                .build();
-    }
-
     public StationDto mapToStationDto(Station station) {
         return StationDto.builder()
                 .id(station.getId())

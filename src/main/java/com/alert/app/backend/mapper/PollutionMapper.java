@@ -10,13 +10,6 @@ import java.util.List;
 @Service
 public class PollutionMapper {
 
-    public Pollution mapToPollution(PollutionDto pollutionDto) {
-        return Pollution.builder()
-                .id(pollutionDto.getId())
-                .name(pollutionDto.getName())
-                .build();
-    }
-
     public PollutionDto mapToPollutionDto(Pollution pollution) {
         return PollutionDto.builder()
                 .id(pollution.getId())
