@@ -12,6 +12,5 @@ import lombok.NoArgsConstructor;
 public class GiosApiAirQualityLevelDto {
 
     private long id;
-
     private String indexLevelName;
 }
