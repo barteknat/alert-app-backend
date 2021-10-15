@@ -12,5 +12,6 @@ import lombok.NoArgsConstructor;
 public class GiosApiSensorDto {
 
     private long id;
+    private long stationId;
     private GiosApiSensorParamDto param;
 }

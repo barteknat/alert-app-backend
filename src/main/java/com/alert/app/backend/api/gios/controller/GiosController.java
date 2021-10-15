@@ -1,7 +1,6 @@
 package com.alert.app.backend.api.gios.controller;
 
 import com.alert.app.backend.api.gios.dto.GiosApiAirQualityDto;
-import com.alert.app.backend.api.gios.dto.GiosApiPollutionDto;
 import com.alert.app.backend.api.gios.dto.GiosApiSensorDto;
 import com.alert.app.backend.api.gios.dto.GiosApiStationDto;
 import com.alert.app.backend.api.gios.service.GiosService;
@@ -28,13 +27,8 @@ public class GiosController {
         return giosService.getSensorsByStationId(stationId);
     }
 
-    @GetMapping("/pollution")
-    public GiosApiPollutionDto getPollutionBySensorId(@RequestParam long sensorId) {
-        return giosService.getPollutionBySensorId(sensorId);
-    }
-
     @GetMapping("/airQuality")
     public GiosApiAirQualityDto getAirQualityByStationId(@RequestParam long stationId) {
-        return giosService.getAirQualityByStationId(stationId);
+        return giosService.getAirQualityIndexByStationId(stationId);
     }
 }

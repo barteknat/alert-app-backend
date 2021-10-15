@@ -1,6 +1,6 @@
 package com.alert.app.backend.domain;
 
-import com.alert.app.backend.status.Status;
+import com.alert.app.backend.status.SubscribeStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity
+@Entity(name = "USERS")
 public class User {
 
     @Id
@@ -24,6 +24,6 @@ public class User {
     private String email;
     private String password;
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private SubscribeStatus subscribeStatus;
     private LocalDateTime created;
 }

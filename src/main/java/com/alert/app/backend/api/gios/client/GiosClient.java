@@ -32,7 +32,6 @@ public class GiosClient {
                     .stream()
                     .filter(giosApiStationDto -> Objects.nonNull(giosApiStationDto.getId()) && Objects.nonNull(giosApiStationDto.getStationName()))
                     .collect(Collectors.toList());
-            System.out.println(giosApiStationDtoList);
             return giosApiStationDtoList;
         } catch (RestClientException e) {
             log.error(e.getMessage(), e);

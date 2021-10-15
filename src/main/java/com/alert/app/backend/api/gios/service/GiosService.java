@@ -16,56 +16,44 @@ public class GiosService {
 
     private final GiosClient giosClient;
     private final GiosMapper giosMapper;
-    private final StationRepository stationRepository;
-    private final CityRepository cityRepository;
-    private final SensorRepository sensorRepository;
-    private final PollutionRepository pollutionRepository;
-    private final PollutionValueRepository pollutionValueRepository;
-    private final AirQualityRepository airQualityRepository;
+    private final AirQualityStationRepository airQualityStationRepository;
+    private final AirQualitySensorRepository airQualitySensorRepository;
+    private final AirQualityIndexRepository airQualityIndexRepository;
 
     public List<GiosApiStationDto> getAllStations() {
         List<GiosApiStationDto> giosApiStationDtoList = giosClient.getGiosStations();
         for (GiosApiStationDto giosApiStationDto : giosApiStationDtoList) {
-            City city = giosMapper.mapToCity(giosApiStationDto);
-            cityRepository.save(city);
-            Station station = giosMapper.mapToStation(giosApiStationDto);
-            station.setCity(city);
-            stationRepository.save(station);
+            AirQualityStation airQualityStation = giosMapper.mapToStation(giosApiStationDto);
+            if (!airQualityStationRepository.existsByCity(giosApiStationDto.getCity().getName())) {
+                airQualityStationRepository.save(airQualityStation);
+            }
         }
-        return giosClient.getGiosStations();
+        return giosApiStationDtoList;
     }
 
     public List<GiosApiSensorDto> getSensorsByStationId(long stationId) {
         List<GiosApiSensorDto> giosApiSensorDtoList = giosClient.getGiosSensors(stationId);
         for (GiosApiSensorDto giosApiSensorDto : giosApiSensorDtoList) {
-            Station station = stationRepository.getById(stationId);
-            Sensor sensor = giosMapper.mapToSensor(giosApiSensorDto);
-            sensor.setStation(station);
-            sensorRepository.save(sensor);
+            AirQualityStation airQualityStation = airQualityStationRepository.getByStationApiId(stationId);
+            GiosApiPollutionDto giosApiPollutionDto = giosClient.getGiosPollution(giosApiSensorDto.getId());
+            for (GiosApiPollutionValueDto giosApiPollutionValueDto : giosApiPollutionDto.getValues()) {
+                if (giosApiPollutionValueDto.getValue() != 0) {
+                    AirQualitySensor airQualitySensor = giosMapper.mapToSensor(giosApiSensorDto, giosApiPollutionValueDto);
+                    airQualitySensor.setAirQualityStation(airQualityStation);
+                    airQualitySensorRepository.save(airQualitySensor);
+                    break;
+                }
+            }
         }
         return giosApiSensorDtoList;
     }
 
-    public GiosApiPollutionDto getPollutionBySensorId(long sensorId) {
-        GiosApiPollutionDto giosApiPollutionDto = giosClient.getGiosPollution(sensorId);
-        Sensor sensor = sensorRepository.getById(sensorId);
-        Pollution pollution = giosMapper.mapToPollution(giosApiPollutionDto);
-        pollution.setSensor(sensor);
-        pollutionRepository.save(pollution);
-        for (GiosApiPollutionValueDto giosApiPollutionValueDto : giosApiPollutionDto.getValues()) {
-            PollutionValue pollutionValue = giosMapper.mapToPollutionValue(giosApiPollutionValueDto);
-            pollutionValue.setPollution(pollution);
-            pollutionValueRepository.save(pollutionValue);
-        }
-        return giosApiPollutionDto;
-    }
-
-    public GiosApiAirQualityDto getAirQualityByStationId(long stationId) {
+    public GiosApiAirQualityDto getAirQualityIndexByStationId(long stationId) {
         GiosApiAirQualityDto giosApiAirQualityDto = giosClient.getGiosAirQuality(stationId);
-        Station station = stationRepository.getById(stationId);
-        AirQuality airQuality = giosMapper.mapToAirQuality(giosApiAirQualityDto);
-        airQuality.setStation(station);
-        airQualityRepository.save(airQuality);
+        AirQualityStation airQualityStation = airQualityStationRepository.getByStationApiId(stationId);
+        AirQualityIndex airQualityIndex = giosMapper.mapToAirQuality(giosApiAirQualityDto, stationId);
+        airQualityIndex.setAirQualityStation(airQualityStation);
+        airQualityIndexRepository.save(airQualityIndex);
         return giosApiAirQualityDto;
     }
 }

@@ -2,6 +2,7 @@ package com.alert.app.backend.controller;
 
 import com.alert.app.backend.dto.SubscribeDto;
 import com.alert.app.backend.service.SubscribeService;
+import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,12 +26,17 @@ public class SubscribeController {
     }
 
     @PostMapping
-    public SubscribeDto create(@RequestParam long userId, @RequestParam long cityId) {
-        return service.create(userId, cityId);
+    public SubscribeDto create(@RequestParam long userId, @RequestParam String city) throws NotFoundException {
+        return service.create(userId, city);
     }
 
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable long id) {
         service.delete(id);
+    }
+
+    @GetMapping("/check")
+    public void checkAll() {
+        service.checkSubscribes();
     }
 }

@@ -6,24 +6,25 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity(name = "SUBSCRIBES")
-public class Subscribe {
+@Entity(name = "AIR_QUALITY_SENSORS")
+public class AirQualitySensor {
 
     @Id
     @GeneratedValue
     private long id;
+    private long sensorApiId;
+    private long stationApiId;
+    private String name;
+    private String code;
+    private LocalDateTime date;
+    private double value;
     @ManyToOne
-    @JoinColumn(name = "USER_ID")
-    private User user;
-    @ManyToOne
-    @JoinColumn(name = "AIR_QUALITY_STATION_ID")
+    @JoinColumn(name = "STATION_ID")
     private AirQualityStation airQualityStation;
-    @ManyToOne
-    @JoinColumn(name = "WEATHER_STATION_ID")
-    private WeatherStation weatherStation;
 }

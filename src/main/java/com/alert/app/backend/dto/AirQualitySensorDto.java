@@ -1,6 +1,5 @@
 package com.alert.app.backend.dto;
 
-import com.alert.app.backend.status.SubscribeStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,12 +11,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class UserDto {
+public class AirQualitySensorDto {
 
     private long id;
-    private String username;
-    private String email;
-    private String password;
-    private SubscribeStatus subscribeStatus;
-    private LocalDateTime created;
+    private long sensorApiId;
+    private long stationApiId;
+    private String name;
+    private String code;
+    private LocalDateTime date;
+    private double value;
 }
