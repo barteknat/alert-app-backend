@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 public interface WeatherStationRepository extends JpaRepository<WeatherStation, Long> {
 
     boolean existsByCity(String city);
-    WeatherStation deleteByCity(String city);
     WeatherStation getByCityLike(String city);
     boolean existsByCityLike(String city);
+    WeatherStation getByCity(String city);
 }

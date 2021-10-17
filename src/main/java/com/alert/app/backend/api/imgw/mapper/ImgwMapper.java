@@ -16,6 +16,7 @@ public class ImgwMapper {
                 .stationId(Long.parseLong(Optional.ofNullable(imgwApiStationDto.getId_stacji()).orElse("0")))
                 .city(imgwApiStationDto.getStacja())
                 .date(LocalDate.parse(Optional.ofNullable(imgwApiStationDto.getData_pomiaru()).orElse("1900-01-01")))
+                .time(Long.parseLong(Optional.ofNullable(imgwApiStationDto.getGodzina_pomiaru()).orElse("0")))
                 .temperature(Double.parseDouble(Optional.ofNullable(imgwApiStationDto.getTemperatura()).orElse("0")))
                 .windSpeed(Double.parseDouble(Optional.ofNullable(imgwApiStationDto.getPredkosc_wiatru()).orElse("0")))
                 .windDirection(Double.parseDouble(Optional.ofNullable(imgwApiStationDto.getKierunek_wiatru()).orElse("0")))

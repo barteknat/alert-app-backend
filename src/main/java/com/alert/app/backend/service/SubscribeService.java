@@ -13,6 +13,8 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 import static com.alert.app.backend.status.AirQualityStatus.VERY_GOOD;
+import static com.alert.app.backend.status.StatisticsStatus.SUBSCRIBE_CREATED;
+import static com.alert.app.backend.status.StatisticsStatus.USER_CREATED;
 import static com.alert.app.backend.status.SubscribeStatus.NOT_SUBSCRIBING;
 import static com.alert.app.backend.status.SubscribeStatus.SUBSCRIBING;
 
@@ -27,6 +29,7 @@ public class SubscribeService {
     private final WeatherStationRepository weatherStationRepository;
     private final AirQualityIndexRepository airQualityIndexRepository;
     private final GiosService giosService;
+    private final StatisticsService statisticsService;
 
     public List<SubscribeDto> getAll() {
         return subscribeMapper.mapToSubscribeDtoList(subscribeRepository.findAll());
@@ -50,35 +53,11 @@ public class SubscribeService {
         subscribe.setAirQualityStation(airQualityStation);
         subscribe.setWeatherStation(weatherStation);
         user.setSubscribeStatus(SUBSCRIBING);
-//        checkSubscribes();
+        statisticsService.create(Statistics.builder()
+                .status(SUBSCRIBE_CREATED)
+                .remarks("")
+                .build());
         return subscribeMapper.mapToSubscribeDto(subscribeRepository.save(subscribe));
-    }
-
-    public void checkSubscribes() {
-        List<Subscribe> subscribes = subscribeRepository.findAll();
-        for (Subscribe subscribe : subscribes) {
-            long stationId = subscribe.getAirQualityStation().getStationApiId();
-            giosService.getAirQualityIndexByStationId(stationId);
-            AirQualityIndex airQualityIndex = airQualityIndexRepository.getDistinctFirstByStationApiIdOrderByIdDesc(stationId);
-            if (airQualityIndex.getLevelName().equals(VERY_GOOD.getValue())) {
-                System.out.println("EMAIL HAS BEEN SENT id: " + airQualityIndex.getId());
-            }
-        }
-//        for (Subscribe subscribe : subscribes) {
-//            long stationId = subscribe.getAirQualityStation().getStationApiId();
-//            giosService.getAirQualityIndexByStationId(stationId);
-//            AirQualityIndex airQualityIndex = airQualityIndexRepository.getByIdAndStationApiIdOrderByIdDesc(2, 2);
-//            List<AirQualityIndex> airQualityIndex = airQualityIndexRepository.getAllByStationApiIdOrderByDateDesc(stationId);
-//            System.out.println("AIR QUALITY INDEX: " + airQualityIndex);
-//            if (airQualityIndex.getLevelName().equals(VERY_GOOD.getValue())) {
-//                sendMail();
-//            }
-
-//        }
-    }
-
-    public void sendMail() {
-        System.out.println("EMAIL HAS BEEN SENT");
     }
 
     @Transactional

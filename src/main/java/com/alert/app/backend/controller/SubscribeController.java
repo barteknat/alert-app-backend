@@ -34,9 +34,4 @@ public class SubscribeController {
     public void delete(@PathVariable long id) {
         service.delete(id);
     }
-
-    @GetMapping("/check")
-    public void checkAll() {
-        service.checkSubscribes();
-    }
 }

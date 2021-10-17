@@ -25,7 +25,7 @@ public class AirQualityStationController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public void delete(@PathVariable long id) {
+    public void delete(@PathVariable int id) {
         service.delete(id);
     }
 }

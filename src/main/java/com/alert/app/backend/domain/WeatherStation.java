@@ -23,6 +23,7 @@ public class WeatherStation {
     private long stationId;
     private String city;
     private LocalDate date;
+    private long time;
     private double temperature;
     private double windSpeed;
     private double windDirection;

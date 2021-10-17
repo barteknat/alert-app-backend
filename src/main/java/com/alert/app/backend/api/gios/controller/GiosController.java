@@ -18,17 +18,17 @@ public class GiosController {
     private final GiosService giosService;
 
     @GetMapping("/stations")
-    public List<GiosApiStationDto> getAllStations() {
-        return giosService.getAllStations();
+    public List<GiosApiStationDto> getAndSaveAllStations() {
+        return giosService.getAndSaveAllStations();
     }
 
     @GetMapping("/sensors")
-    public List<GiosApiSensorDto> getSensorsByStationId(@RequestParam long stationId) {
-        return giosService.getSensorsByStationId(stationId);
+    public List<GiosApiSensorDto> getAndSaveSensorsByStationId(@RequestParam long stationId) {
+        return giosService.getAndSaveSensorsByStationId(stationId);
     }
 
     @GetMapping("/airQuality")
-    public GiosApiAirQualityDto getAirQualityByStationId(@RequestParam long stationId) {
-        return giosService.getAirQualityIndexByStationId(stationId);
+    public GiosApiAirQualityDto getAndSaveAirQualityByStationId(@RequestParam long stationId) {
+        return giosService.getAndSaveAirQualityIndexByStationId(stationId);
     }
 }

@@ -24,6 +24,10 @@ public class AirQualityStationService {
         return airQualityStationMapper.mapToStationDto(airQualityStationRepository.getById(id));
     }
 
+    public AirQualityStationDto getByCity(String city) {
+        return airQualityStationMapper.mapToStationDto(airQualityStationRepository.getByCity(city));
+    }
+
     @Transactional
     public void delete(long id) {
         airQualityStationRepository.deleteById(id);

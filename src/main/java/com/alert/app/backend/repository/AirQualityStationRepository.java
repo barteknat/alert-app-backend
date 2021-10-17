@@ -11,4 +11,6 @@ public interface AirQualityStationRepository extends JpaRepository<AirQualitySta
     boolean existsByCity(String city);
     AirQualityStation getByCityLike(String city);
     boolean existsByCityLike(String city);
+    boolean existsByStationApiId(long stationId);
+    AirQualityStation getByCity(String city);
 }

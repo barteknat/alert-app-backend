@@ -22,7 +22,6 @@ public class AirQualityIndex {
     private long stationApiId;
     private LocalDateTime date;
     private long level;
-//    @Enumerated(EnumType.STRING)
     private String levelName;
     @ManyToOne
     @JoinColumn(name = "STATION_ID")

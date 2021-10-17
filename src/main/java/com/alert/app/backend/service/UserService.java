@@ -1,5 +1,6 @@
 package com.alert.app.backend.service;
 
+import com.alert.app.backend.domain.Statistics;
 import com.alert.app.backend.domain.User;
 import com.alert.app.backend.dto.UserDto;
 import com.alert.app.backend.mapper.UserMapper;
@@ -12,6 +13,7 @@ import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static com.alert.app.backend.status.StatisticsStatus.*;
 import static com.alert.app.backend.status.SubscribeStatus.NOT_SUBSCRIBING;
 
 @Service
@@ -20,6 +22,7 @@ public class UserService {
 
     private final UserMapper userMapper;
     private final UserRepository userRepository;
+    private final StatisticsService statisticsService;
 
     public List<UserDto> getAll() {
         return userMapper.mapToUserList(userRepository.findAll());
@@ -34,6 +37,10 @@ public class UserService {
         User user = userRepository.save(userMapper.mapToUser(userDto));
         user.setSubscribeStatus(NOT_SUBSCRIBING);
         user.setCreated(LocalDateTime.now());
+        statisticsService.create(Statistics.builder()
+                .status(USER_CREATED)
+                .remarks("")
+                .build());
         return userMapper.mapToUserDto(user);
     }
 
@@ -45,6 +52,10 @@ public class UserService {
         User userUpdated = userRepository.save(userMapper.mapToUser(userDto));
         userUpdated.setSubscribeStatus(subscribeStatus);
         userUpdated.setCreated(created);
+        statisticsService.create(Statistics.builder()
+                .status(USER_UPDATED)
+                .remarks("")
+                .build());
         return userMapper.mapToUserDto(userUpdated);
     }
 

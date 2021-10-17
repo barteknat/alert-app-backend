@@ -16,6 +16,7 @@ public class WeatherStationMapper {
                 .stationId(weatherStation.getStationId())
                 .city(weatherStation.getCity())
                 .date(weatherStation.getDate())
+                .time(weatherStation.getTime())
                 .temperature(weatherStation.getTemperature())
                 .windSpeed(weatherStation.getWindSpeed())
                 .windDirection(weatherStation.getWindDirection())

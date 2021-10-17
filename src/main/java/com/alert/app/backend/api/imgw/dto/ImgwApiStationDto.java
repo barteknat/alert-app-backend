@@ -14,6 +14,7 @@ public class ImgwApiStationDto {
     private String id_stacji;
     private String stacja;
     private String data_pomiaru;
+    private String godzina_pomiaru;
     private String temperatura;
     private String predkosc_wiatru;
     private String kierunek_wiatru;
