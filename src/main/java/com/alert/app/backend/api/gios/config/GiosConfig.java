@@ -10,6 +10,4 @@ public class GiosConfig {
 
     @Value("${gios.api.endpoint}")
     private String giosApiEndpoint;
-
-
 }

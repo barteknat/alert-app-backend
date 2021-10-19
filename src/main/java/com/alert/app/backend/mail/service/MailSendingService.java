@@ -25,10 +25,7 @@ public class MailSendingService {
         try {
             javaMailSender.send(createMailMessage(mail));
             log.info("Email has been sent.");
-            statisticsService.create(Statistics.builder()
-                    .status(SUBSCRIBE_E_MAIL_SENT)
-                    .remarks(mail.getMailTo())
-                    .build());
+            statisticsService.create(SUBSCRIBE_E_MAIL_SENT, mail.getMailTo());
         } catch (MailException e) {
             log.error("Failed to email sending process: " + e.getMessage(), e);
         }

@@ -12,20 +12,20 @@ import java.util.List;
 @RequestMapping("/v1/airQuality")
 public class AirQualityIndexController {
 
-    private final AirQualityIndexService service;
+    private final AirQualityIndexService airQualityIndexService;
 
-    @GetMapping
-    public List<AirQualityIndexDto> getAll() {
-        return service.getAll();
+//    @GetMapping("/all")
+//    public List<AirQualityIndexDto> getAll() {
+//        return service.getAll();
+//    }
+
+    @GetMapping()
+    public AirQualityIndexDto getByStationId(@RequestParam long stationId) {
+        return airQualityIndexService.getByStationId(stationId);
     }
 
-    @GetMapping(value = "/{id}")
-    public AirQualityIndexDto getById(@PathVariable long id) {
-        return service.getById(id);
-    }
-
-    @DeleteMapping(value = "/{id}")
-    public void delete(@PathVariable long id) {
-        service.delete(id);
-    }
+//    @DeleteMapping(value = "/{id}")
+//    public void delete(@PathVariable long id) {
+//        service.delete(id);
+//    }
 }

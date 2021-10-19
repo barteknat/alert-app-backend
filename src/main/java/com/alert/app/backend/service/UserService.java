@@ -37,10 +37,7 @@ public class UserService {
         User user = userRepository.save(userMapper.mapToUser(userDto));
         user.setSubscribeStatus(NOT_SUBSCRIBING);
         user.setCreated(LocalDateTime.now());
-        statisticsService.create(Statistics.builder()
-                .status(USER_CREATED)
-                .remarks("")
-                .build());
+        statisticsService.create(USER_CREATED, "");
         return userMapper.mapToUserDto(user);
     }
 
@@ -52,10 +49,7 @@ public class UserService {
         User userUpdated = userRepository.save(userMapper.mapToUser(userDto));
         userUpdated.setSubscribeStatus(subscribeStatus);
         userUpdated.setCreated(created);
-        statisticsService.create(Statistics.builder()
-                .status(USER_UPDATED)
-                .remarks("")
-                .build());
+        statisticsService.create(USER_UPDATED, "");
         return userMapper.mapToUserDto(userUpdated);
     }
 

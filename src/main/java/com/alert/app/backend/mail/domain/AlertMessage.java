@@ -6,16 +6,16 @@ import com.alert.app.backend.status.AirQualityStatus;
 
 import static com.alert.app.backend.status.AirQualityStatus.*;
 
-public enum AlertMail {
+public enum AlertMessage {
 
-    ALERT_MAIL;
+    ALERT_MESSAGE;
 
     public String getSubscribeAlertMessage(Subscribe subscribe, AirQualityIndex airQualityIndex) {
         return "WARNING!!!\n\n" +
                 "Air condition in " + subscribe.getAirQualityStation().getCity() +
                 " is >>> " + getStatus(airQualityIndex.getLevelName()) + " <<< try to stay at home. \n\n" +
                 "Additional weather info: \n" +
-                "-> temperature: " + subscribe.getWeatherStation().getTemperature() + " C \n" +
+                "-> temperature: " + subscribe.getWeatherStation().getTemperature() + " \u00B0C \n" +
                 "-> wind speed: " + subscribe.getWeatherStation().getWindSpeed() + " km/h \n" +
                 "-> humidity: " + subscribe.getWeatherStation().getHumidity() + " % \n" +
                 "-> pressure: " + subscribe.getWeatherStation().getPressure() + " hPa \n\n" +

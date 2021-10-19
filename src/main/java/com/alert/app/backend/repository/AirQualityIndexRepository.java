@@ -9,10 +9,11 @@ import java.util.List;
 @Repository
 public interface AirQualityIndexRepository extends JpaRepository<AirQualityIndex, Long> {
 
+    AirQualityIndex getByStationApiId(long stationId);
     AirQualityIndex getDistinctFirstByStationApiIdOrderByIdDesc(long stationId);
-    AirQualityIndex getDistinctFirstByStationApiId(long stationId);
-    AirQualityIndex getByStationApiIdOrderByIdDesc(long stationId);
-    AirQualityIndex getByIdAndStationApiIdOrderByIdDesc(long id, long id2);
-    List<AirQualityIndex> getAllByStationApiIdOrderByDateDesc(long stationId);
+//    AirQualityIndex getDistinctFirstByStationApiId(long stationId);
+//    AirQualityIndex getByStationApiIdOrderByIdDesc(long stationId);
+//    AirQualityIndex getByIdAndStationApiIdOrderByIdDesc(long id, long id2);
+//    List<AirQualityIndex> getAllByStationApiIdOrderByDateDesc(long stationId);
 
 }

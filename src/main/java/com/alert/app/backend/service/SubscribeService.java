@@ -12,9 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 
-import static com.alert.app.backend.status.AirQualityStatus.VERY_GOOD;
 import static com.alert.app.backend.status.StatisticsStatus.SUBSCRIBE_CREATED;
-import static com.alert.app.backend.status.StatisticsStatus.USER_CREATED;
 import static com.alert.app.backend.status.SubscribeStatus.NOT_SUBSCRIBING;
 import static com.alert.app.backend.status.SubscribeStatus.SUBSCRIBING;
 
@@ -43,20 +41,16 @@ public class SubscribeService {
     public SubscribeDto create(long userId, String city) throws NotFoundException {
         Subscribe subscribe = new Subscribe();
         User user = userRepository.getById(userId);
-        if (!airQualityStationRepository.existsByCityLike(city) || !weatherStationRepository.existsByCityLike(city))
-            throw new NotFoundException("STATION NOT FOUND");
+        if (!airQualityStationRepository.existsByCityLike(city)) throw new NotFoundException("CITY NOT FOUND");
         AirQualityStation airQualityStation = airQualityStationRepository.getByCityLike(city);
-        WeatherStation weatherStation = weatherStationRepository.getByCityLike(city);
+        WeatherStation weatherStation = weatherStationRepository.getDistinctFirstByCityOrderByIdDesc(city);
 //        giosService.getSensorsByStationId(airQualityStation.getStationApiId());
 //        giosService.getAirQualityIndexByStationId(airQualityStation.getStationApiId());
         subscribe.setUser(user);
         subscribe.setAirQualityStation(airQualityStation);
         subscribe.setWeatherStation(weatherStation);
         user.setSubscribeStatus(SUBSCRIBING);
-        statisticsService.create(Statistics.builder()
-                .status(SUBSCRIBE_CREATED)
-                .remarks("")
-                .build());
+        statisticsService.create(SUBSCRIBE_CREATED, "");
         return subscribeMapper.mapToSubscribeDto(subscribeRepository.save(subscribe));
     }
 
