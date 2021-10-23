@@ -1,5 +1,6 @@
 package com.alert.app.backend.service;
 
+import com.alert.app.backend.api.gios.dto.GiosApiStationDto;
 import com.alert.app.backend.api.gios.service.GiosService;
 import com.alert.app.backend.dto.AirQualityStationDto;
 import com.alert.app.backend.exception.UpdateException;
@@ -20,12 +21,8 @@ public class AirQualityStationService {
 
     private final AirQualityStationMapper airQualityStationMapper;
     private final AirQualityStationRepository airQualityStationRepository;
-    private final GiosService giosService;
-    @Autowired
-    private final WeatherStationRepository weatherStationRepository;
 
-    public List<AirQualityStationDto> getAll() throws UpdateException {
-        giosService.getAndSaveAllStations();
+    public List<AirQualityStationDto> getAll() {
         return airQualityStationMapper.mapToStationDtoList(airQualityStationRepository.findAll());
     }
 

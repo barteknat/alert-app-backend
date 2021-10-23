@@ -1,6 +1,6 @@
 package com.alert.app.backend.domain;
 
-import com.alert.app.backend.status.SubscribeStatus;
+import com.alert.app.backend.status.UserStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,6 +24,8 @@ public class User {
     private String email;
     private String password;
     @Enumerated(EnumType.STRING)
-    private SubscribeStatus subscribeStatus;
+    private UserStatus logStatus;
+    @Enumerated(EnumType.STRING)
+    private UserStatus subStatus;
     private LocalDateTime created;
 }

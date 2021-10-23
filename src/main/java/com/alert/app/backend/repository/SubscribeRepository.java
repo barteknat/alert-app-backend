@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface SubscribeRepository extends JpaRepository<Subscribe, Long> {
 
     boolean existsByUserId(long id);
+    boolean existsByUserIdAndAirQualityStation_City(long userId, String city);
+    Subscribe getByUserIdAndAirQualityStation_City(long userId, String city);
 }

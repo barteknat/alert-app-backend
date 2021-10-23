@@ -1,6 +1,5 @@
 package com.alert.app.backend.api.gios.service;
 
-import com.alert.app.backend.AlertApplication;
 import com.alert.app.backend.api.gios.client.GiosClient;
 import com.alert.app.backend.api.gios.dto.*;
 import com.alert.app.backend.api.gios.mapper.GiosMapper;
@@ -10,10 +9,10 @@ import com.alert.app.backend.repository.*;
 import com.alert.app.backend.service.StatisticsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.event.TransactionalEventListener;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import static com.alert.app.backend.status.StatisticsStatus.*;
@@ -33,8 +32,9 @@ public class GiosService {
 
     @Transactional
     public List<GiosApiStationDto> getAndSaveAllStations() throws UpdateException {
-        if (!subscribeRepository.findAll().isEmpty() || !airQualitySensorRepository.findAll().isEmpty() || !airQualityIndexRepository.findAll().isEmpty()) throw new UpdateException("STATIONS CANNOT BE UPDATED");
+        if (!subscribeRepository.findAll().isEmpty() || !airQualitySensorRepository.findAll().isEmpty() || !airQualityIndexRepository.findAll().isEmpty()) return new ArrayList<>();
         List<GiosApiStationDto> giosApiStationDtoList = giosClient.getGiosStations();
+        giosApiStationDtoList.sort(Comparator.comparing((GiosApiStationDto g) -> g.getCity().getName()));
         List<WeatherStation> weatherStationList = weatherStationRepository.findAll();
         for (GiosApiStationDto giosApiStationDto : giosApiStationDtoList) {
             AirQualityStation airQualityStation = giosMapper.mapToStation(giosApiStationDto);
@@ -44,7 +44,7 @@ public class GiosService {
                     airQualityStationRepository.deleteById(stationId);
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+//                e.printStackTrace();
             }
             if (weatherStationList.contains(weatherStationRepository.getByCity(giosApiStationDto.getCity().getName()))) {
                 airQualityStationRepository.save(airQualityStation);

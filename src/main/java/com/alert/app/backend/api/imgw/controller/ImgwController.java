@@ -17,7 +17,7 @@ public class ImgwController {
     private final ImgwService imgwService;
 
     @GetMapping("/stations")
-    public List<ImgwApiStationDto> getAndSaveAllStations() throws UpdateException {
+    public List<ImgwApiStationDto> setAllStations() throws UpdateException {
         return imgwService.getAndSaveAllStations();
     }
 }

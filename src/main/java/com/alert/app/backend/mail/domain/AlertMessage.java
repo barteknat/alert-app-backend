@@ -14,7 +14,7 @@ public enum AlertMessage {
         return "WARNING!!!\n\n" +
                 "Air condition in " + subscribe.getAirQualityStation().getCity() +
                 " is >>> " + getStatus(airQualityIndex.getLevelName()) + " <<< try to stay at home. \n\n" +
-                "Additional weather info: \n" +
+                "Additional actual weather info: \n" +
                 "-> temperature: " + subscribe.getWeatherStation().getTemperature() + " \u00B0C \n" +
                 "-> wind speed: " + subscribe.getWeatherStation().getWindSpeed() + " km/h \n" +
                 "-> humidity: " + subscribe.getWeatherStation().getHumidity() + " % \n" +

@@ -4,8 +4,6 @@ import com.alert.app.backend.domain.AirQualityIndex;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
 public interface AirQualityIndexRepository extends JpaRepository<AirQualityIndex, Long> {
 

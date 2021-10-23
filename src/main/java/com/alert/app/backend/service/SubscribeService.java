@@ -3,6 +3,8 @@ package com.alert.app.backend.service;
 import com.alert.app.backend.api.gios.service.GiosService;
 import com.alert.app.backend.domain.*;
 import com.alert.app.backend.dto.SubscribeDto;
+import com.alert.app.backend.exception.DuplicateException;
+import com.alert.app.backend.exception.WrongException;
 import com.alert.app.backend.mapper.SubscribeMapper;
 import com.alert.app.backend.repository.*;
 import javassist.NotFoundException;
@@ -13,8 +15,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 import static com.alert.app.backend.status.StatisticsStatus.SUBSCRIBE_CREATED;
-import static com.alert.app.backend.status.SubscribeStatus.NOT_SUBSCRIBING;
-import static com.alert.app.backend.status.SubscribeStatus.SUBSCRIBING;
+import static com.alert.app.backend.status.UserStatus.*;
 
 @Service
 @RequiredArgsConstructor
@@ -37,19 +38,28 @@ public class SubscribeService {
         return subscribeMapper.mapToSubscribeDto(subscribeRepository.getById(id));
     }
 
+    public SubscribeDto getByUserIdAndCity(long userId, String city) {
+        try {
+            return subscribeMapper.mapToSubscribeDto(subscribeRepository.getByUserIdAndAirQualityStation_City(userId, city));
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     @Transactional
-    public SubscribeDto create(long userId, String city) throws NotFoundException {
+    public SubscribeDto create(long userId, String city) throws NotFoundException, DuplicateException, WrongException {
+        if (!userRepository.existsById(userId)) throw new NotFoundException("USER NOT FOUND");
+        if (!airQualityStationRepository.existsByCityLike(city)) throw new NotFoundException("CITY NOT FOUND");
+        if (!userRepository.getById(userId).getLogStatus().equals(LOGGED_IN)) throw new WrongException("YOU HAVE TO BE LOG_IN FIRST");
+        if (subscribeRepository.existsByUserIdAndAirQualityStation_City(userId, city)) throw new DuplicateException("YOU ARE ALREADY SUBSCRIBING THIS CITY");
         Subscribe subscribe = new Subscribe();
         User user = userRepository.getById(userId);
-        if (!airQualityStationRepository.existsByCityLike(city)) throw new NotFoundException("CITY NOT FOUND");
         AirQualityStation airQualityStation = airQualityStationRepository.getByCityLike(city);
         WeatherStation weatherStation = weatherStationRepository.getDistinctFirstByCityOrderByIdDesc(city);
-//        giosService.getSensorsByStationId(airQualityStation.getStationApiId());
-//        giosService.getAirQualityIndexByStationId(airQualityStation.getStationApiId());
         subscribe.setUser(user);
         subscribe.setAirQualityStation(airQualityStation);
         subscribe.setWeatherStation(weatherStation);
-        user.setSubscribeStatus(SUBSCRIBING);
+        user.setSubStatus(SUBSCRIBING);
         statisticsService.create(SUBSCRIBE_CREATED, "");
         return subscribeMapper.mapToSubscribeDto(subscribeRepository.save(subscribe));
     }
@@ -58,6 +68,6 @@ public class SubscribeService {
     public void delete(long id) {
         User user = subscribeRepository.getById(id).getUser();
         subscribeRepository.deleteById(id);
-        user.setSubscribeStatus(NOT_SUBSCRIBING);
+        user.setSubStatus(NOT_SUBSCRIBING);
     }
 }

@@ -29,12 +29,13 @@ public class SubscribeScheduler {
     //    @Scheduled(cron = "0 0 8 * * *")
 //    @Scheduled(fixedDelay = 10000)
     public void checkSubscribes() {
+        if (subscribeRepository.findAll().isEmpty()) return;
         List<Subscribe> subscribes = subscribeRepository.findAll();
         for (Subscribe subscribe : subscribes) {
             long stationId = subscribe.getAirQualityStation().getStationApiId();
             giosService.getAndSaveAirQualityIndexByStationId(stationId);
             AirQualityIndex airQualityIndex = airQualityIndexRepository.getDistinctFirstByStationApiIdOrderByIdDesc(stationId);
-            if (airQualityIndex.getLevelName().equals(VERY_BAD.getValue()) || airQualityIndex.getLevelName().equals(BAD.getValue())) {
+            if (airQualityIndex.getLevelName().equals(BAD.getValue()) || airQualityIndex.getLevelName().equals(VERY_BAD.getValue())) {
                 mailSendingService.sendMailMessage(mailCreatorService.buildSubscribeAlertMail(subscribe, airQualityIndex));
             }
         }
