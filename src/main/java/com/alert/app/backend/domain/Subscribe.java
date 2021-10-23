@@ -17,6 +17,7 @@ public class Subscribe {
     @Id
     @GeneratedValue
     private long id;
+    private String city;
     @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User user;

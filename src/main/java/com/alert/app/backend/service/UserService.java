@@ -86,6 +86,14 @@ public class UserService {
         statisticsService.create(LOGIN_SUCCESS, user.getEmail());
     }
 
+    @Transactional
+    public void logOut(String email) throws WrongException {
+        if (!userRepository.existsByEmail(email)) return;
+        User user = userRepository.getByEmail(email);
+        user.setLogStatus(LOGGED_OUT);
+        statisticsService.create(LOGOUT_SUCCESS, user.getEmail());
+    }
+
 //    @Transactional
 //    public
 

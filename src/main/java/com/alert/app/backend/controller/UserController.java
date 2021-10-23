@@ -52,6 +52,11 @@ public class UserController {
         userService.logIn(email, password);
     }
 
+    @PutMapping("/logOut")
+    public void logOut(@RequestParam String email) throws WrongException {
+        userService.logOut(email);
+    }
+
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable long id) {
         userService.delete(id);

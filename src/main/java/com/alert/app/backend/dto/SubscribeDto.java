@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 public class SubscribeDto {
 
     private long id;
+    private String city;
 }
