@@ -1,6 +1,5 @@
 package com.alert.app.backend.mail.service;
 
-import com.alert.app.backend.domain.Statistics;
 import com.alert.app.backend.mail.domain.Mail;
 import com.alert.app.backend.service.StatisticsService;
 import lombok.RequiredArgsConstructor;

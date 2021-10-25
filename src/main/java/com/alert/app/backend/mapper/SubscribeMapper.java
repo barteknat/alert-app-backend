@@ -2,7 +2,6 @@ package com.alert.app.backend.mapper;
 
 import com.alert.app.backend.domain.Subscribe;
 import com.alert.app.backend.dto.SubscribeDto;
-import com.alert.app.backend.repository.AirQualityStationRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

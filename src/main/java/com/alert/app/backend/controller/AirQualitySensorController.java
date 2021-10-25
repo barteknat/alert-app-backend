@@ -19,13 +19,8 @@ public class AirQualitySensorController {
         return airQualitySensorService.getAllByStationId(stationId);
     }
 
-//    @GetMapping(value = "/{id}")
-//    public AirQualitySensorDto getById(@PathVariable long id) {
-//        return service.getById(id);
-//    }
-//
 //    @DeleteMapping(value = "/{id}")
 //    public void delete(@PathVariable long id) {
-//        service.delete(id);
+//        airQualitySensorService.delete(id);
 //    }
 }

@@ -17,14 +17,9 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping("/all")
-    public List<UserDto> getAll() {
-        return userService.getAll();
-    }
-//
-//    @GetMapping(value = "/{id}")
-//    public UserDto getById(@PathVariable long id) {
-//        return service.getById(id);
+//    @GetMapping("/all")
+//    public List<UserDto> getAll() {
+//        return userService.getAll();
 //    }
 
     @GetMapping
@@ -32,10 +27,10 @@ public class UserController {
         return userService.getByEmail(email);
     }
 
-    @GetMapping("/name")
-    public UserDto getByUsername(@RequestParam String username) {
-        return userService.getByUsername(username);
-    }
+//    @GetMapping("/name")
+//    public UserDto getByUsername(@RequestParam String username) {
+//        return userService.getByUsername(username);
+//    }
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
     public UserDto create(@RequestBody UserDto userDto) throws WrongException {
@@ -48,12 +43,12 @@ public class UserController {
     }
 
     @PutMapping("/logIn")
-    public void logIn(@RequestParam String email, @RequestParam String password) throws WrongException {
+    public void logIn(@RequestParam String email, @RequestParam String password) {
         userService.logIn(email, password);
     }
 
     @PutMapping("/logOut")
-    public void logOut(@RequestParam String email) throws WrongException {
+    public void logOut(@RequestParam String email) {
         userService.logOut(email);
     }
 

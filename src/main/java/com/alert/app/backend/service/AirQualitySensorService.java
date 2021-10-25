@@ -23,12 +23,8 @@ public class AirQualitySensorService {
         return airQualitySensorMapper.mapToSensorDtoList(airQualitySensorRepository.getByStationApiId(stationId));
     }
 
-//    public AirQualitySensorDto getById(long id) {
-//        return airQualitySensorMapper.mapToSensorDto(airQualitySensorRepository.getById(id));
-//    }
-//
-//    @Transactional
-//    public void delete(long id) {
-//        airQualitySensorRepository.deleteById(id);
-//    }
+    @Transactional
+    public void delete(long id) {
+        airQualitySensorRepository.deleteById(id);
+    }
 }

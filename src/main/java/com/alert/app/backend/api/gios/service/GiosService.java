@@ -1,10 +1,10 @@
 package com.alert.app.backend.api.gios.service;
 
+import com.alert.app.backend.api.CityList;
 import com.alert.app.backend.api.gios.client.GiosClient;
 import com.alert.app.backend.api.gios.dto.*;
 import com.alert.app.backend.api.gios.mapper.GiosMapper;
 import com.alert.app.backend.domain.*;
-import com.alert.app.backend.exception.UpdateException;
 import com.alert.app.backend.repository.*;
 import com.alert.app.backend.service.StatisticsService;
 import lombok.RequiredArgsConstructor;
@@ -26,27 +26,27 @@ public class GiosService {
     private final AirQualityStationRepository airQualityStationRepository;
     private final AirQualitySensorRepository airQualitySensorRepository;
     private final AirQualityIndexRepository airQualityIndexRepository;
-    private final WeatherStationRepository weatherStationRepository;
     private final SubscribeRepository subscribeRepository;
     private final StatisticsService statisticsService;
 
     @Transactional
-    public List<GiosApiStationDto> getAndSaveAllStations() throws UpdateException {
-        if (!subscribeRepository.findAll().isEmpty() || !airQualitySensorRepository.findAll().isEmpty() || !airQualityIndexRepository.findAll().isEmpty()) return new ArrayList<>();
+    public List<GiosApiStationDto> getAndSaveAllStations() {
+        if (!subscribeRepository.findAll().isEmpty() ||
+                !airQualitySensorRepository.findAll().isEmpty() ||
+                !airQualityIndexRepository.findAll().isEmpty()) return new ArrayList<>();
         List<GiosApiStationDto> giosApiStationDtoList = giosClient.getGiosStations();
         giosApiStationDtoList.sort(Comparator.comparing((GiosApiStationDto g) -> g.getCity().getName()));
-        List<WeatherStation> weatherStationList = weatherStationRepository.findAll();
         for (GiosApiStationDto giosApiStationDto : giosApiStationDtoList) {
-            AirQualityStation airQualityStation = giosMapper.mapToStation(giosApiStationDto);
-            try {
-                long stationId = airQualityStationRepository.getByCity(giosApiStationDto.getCity().getName()).getId();
-                if (airQualityStationRepository.existsById(stationId)) {
-                    airQualityStationRepository.deleteById(stationId);
+            if (CityList.getCities().contains(giosApiStationDto.getCity().getName())) {
+                AirQualityStation airQualityStation = giosMapper.mapToStation(giosApiStationDto);
+                try {
+                    long stationId = airQualityStationRepository.getByCity(giosApiStationDto.getCity().getName()).getId();
+                    if (airQualityStationRepository.existsById(stationId)) {
+                        airQualityStationRepository.deleteById(stationId);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            } catch (Exception e) {
-//                e.printStackTrace();
-            }
-            if (weatherStationList.contains(weatherStationRepository.getByCity(giosApiStationDto.getCity().getName()))) {
                 airQualityStationRepository.save(airQualityStation);
             }
         }
@@ -54,6 +54,7 @@ public class GiosService {
         return giosApiStationDtoList;
     }
 
+    @Transactional
     public List<GiosApiSensorDto> getAndSaveSensorsByStationId(long stationId) {
         try {
             List<AirQualitySensor> airQualitySensorList = airQualitySensorRepository.getByStationApiId(stationId);
@@ -80,6 +81,7 @@ public class GiosService {
         return giosApiSensorDtoList;
     }
 
+    @Transactional
     public GiosApiAirQualityDto getAndSaveAirQualityIndexByStationId(long stationId) {
         try {
             long id = airQualityIndexRepository.getByStationApiId(stationId).getId();

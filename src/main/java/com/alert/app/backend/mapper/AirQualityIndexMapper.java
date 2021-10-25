@@ -10,16 +10,6 @@ import java.util.List;
 @Service
 public class AirQualityIndexMapper {
 
-    public AirQualityIndex mapToAirQuality(AirQualityIndexDto airQualityIndexDto) {
-        return AirQualityIndex.builder()
-                .id(airQualityIndexDto.getId())
-                .stationApiId(airQualityIndexDto.getStationApiId())
-                .date(airQualityIndexDto.getDate())
-                .level(airQualityIndexDto.getLevel())
-                .levelName(airQualityIndexDto.getLevelName())
-                .build();
-    }
-
     public AirQualityIndexDto mapToAirQualityDto(AirQualityIndex airQualityIndex) {
         return AirQualityIndexDto.builder()
                 .id(airQualityIndex.getId())

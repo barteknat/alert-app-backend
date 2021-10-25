@@ -25,11 +25,7 @@ public class UserService {
     private final StatisticsService statisticsService;
 
     public List<UserDto> getAll() {
-        return userMapper.mapToUserList(userRepository.findAll());
-    }
-
-    public UserDto getById(long id) {
-        return userMapper.mapToUserDto(userRepository.getById(id));
+        return userMapper.mapToUserDtoList(userRepository.findAll());
     }
 
     public UserDto getByUsername(String username) {
@@ -75,7 +71,7 @@ public class UserService {
     }
 
     @Transactional
-    public void logIn(String email, String password) throws WrongException {
+    public void logIn(String email, String password) {
         if (!userRepository.existsByEmail(email)) return;
         User user = userRepository.getByEmail(email);
         if (!user.getPassword().equals(password)) {
@@ -87,15 +83,12 @@ public class UserService {
     }
 
     @Transactional
-    public void logOut(String email) throws WrongException {
+    public void logOut(String email) {
         if (!userRepository.existsByEmail(email)) return;
         User user = userRepository.getByEmail(email);
         user.setLogStatus(LOGGED_OUT);
         statisticsService.create(LOGOUT_SUCCESS, user.getEmail());
     }
-
-//    @Transactional
-//    public
 
     @Transactional
     public void delete(long id) {

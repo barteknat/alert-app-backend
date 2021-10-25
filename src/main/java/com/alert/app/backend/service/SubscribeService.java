@@ -1,6 +1,5 @@
 package com.alert.app.backend.service;
 
-import com.alert.app.backend.api.gios.service.GiosService;
 import com.alert.app.backend.domain.*;
 import com.alert.app.backend.dto.SubscribeDto;
 import com.alert.app.backend.exception.DuplicateException;
@@ -26,16 +25,14 @@ public class SubscribeService {
     private final UserRepository userRepository;
     private final AirQualityStationRepository airQualityStationRepository;
     private final WeatherStationRepository weatherStationRepository;
-    private final AirQualityIndexRepository airQualityIndexRepository;
-    private final GiosService giosService;
     private final StatisticsService statisticsService;
 
     public List<SubscribeDto> getAll() {
         return subscribeMapper.mapToSubscribeDtoList(subscribeRepository.findAll());
     }
 
-    public SubscribeDto getById(long id) {
-        return subscribeMapper.mapToSubscribeDto(subscribeRepository.getById(id));
+    public List<SubscribeDto> getAllByUserId(long userId) {
+        return subscribeMapper.mapToSubscribeDtoList(subscribeRepository.findAllByUserId(userId));
     }
 
     public SubscribeDto getByUserIdAndCity(long userId, String city) {
@@ -69,6 +66,8 @@ public class SubscribeService {
     public void delete(long id) {
         User user = subscribeRepository.getById(id).getUser();
         subscribeRepository.deleteById(id);
-        user.setSubStatus(NOT_SUBSCRIBING);
+        if (!subscribeRepository.existsByUserId(user.getId())) {
+            user.setSubStatus(NOT_SUBSCRIBING);
+        }
     }
 }

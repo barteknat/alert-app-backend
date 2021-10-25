@@ -31,7 +31,7 @@ public class UserMapper {
                 .build();
     }
 
-    public List<UserDto> mapToUserList(List<User> userList) {
+    public List<UserDto> mapToUserDtoList(List<User> userList) {
         List<UserDto> userDtoList = new ArrayList<>();
         for (User user : userList) {
             userDtoList.add(mapToUserDto(user));

@@ -16,7 +16,7 @@ public class AirQualityIndexController {
 
 //    @GetMapping("/all")
 //    public List<AirQualityIndexDto> getAll() {
-//        return service.getAll();
+//        return airQualityIndexService.getAll();
 //    }
 
     @GetMapping()
@@ -26,6 +26,6 @@ public class AirQualityIndexController {
 
 //    @DeleteMapping(value = "/{id}")
 //    public void delete(@PathVariable long id) {
-//        service.delete(id);
+//        airQualityIndexService.delete(id);
 //    }
 }

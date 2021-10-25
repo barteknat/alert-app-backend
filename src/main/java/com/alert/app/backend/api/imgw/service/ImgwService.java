@@ -1,5 +1,6 @@
 package com.alert.app.backend.api.imgw.service;
 
+import com.alert.app.backend.api.CityList;
 import com.alert.app.backend.api.imgw.client.ImgwClient;
 import com.alert.app.backend.api.imgw.dto.ImgwApiStationDto;
 import com.alert.app.backend.api.imgw.mapper.ImgwMapper;
@@ -27,10 +28,12 @@ public class ImgwService {
     public List<ImgwApiStationDto> getAndSaveAllStations() {
         List<ImgwApiStationDto> imgwApiStationDtoList = imgwClient.getImgwStations();
         for (ImgwApiStationDto imgwApiStationDto : imgwApiStationDtoList) {
-            if (!weatherStationRepository.existsByTimeAndCity(Long.parseLong(imgwApiStationDto.getGodzina_pomiaru()), imgwApiStationDto.getStacja())) {
-                WeatherStation weatherStation = imgwMapper.mapToStation(imgwApiStationDto);
-                weatherStationRepository.save(weatherStation);
-                statisticsService.create(WEATHER_STATION_UPDATED, "");
+            if (CityList.getCities().contains(imgwApiStationDto.getStacja())) {
+                if (!weatherStationRepository.existsByTimeAndCity(Long.parseLong(imgwApiStationDto.getGodzina_pomiaru()), imgwApiStationDto.getStacja())) {
+                    WeatherStation weatherStation = imgwMapper.mapToStation(imgwApiStationDto);
+                    weatherStationRepository.save(weatherStation);
+                    statisticsService.create(WEATHER_STATION_UPDATED, "");
+                }
             }
         }
         return imgwApiStationDtoList;

@@ -18,17 +18,17 @@ public class AirQualityIndexService {
     private final AirQualityIndexRepository airQualityIndexRepository;
     private final GiosService giosService;
 
-//    public List<AirQualityIndexDto> getAll() {
-//        return airQualityIndexMapper.mapToAirQualityDtoList(airQualityIndexRepository.findAll());
-//    }
+    public List<AirQualityIndexDto> getAll() {
+        return airQualityIndexMapper.mapToAirQualityDtoList(airQualityIndexRepository.findAll());
+    }
 
     public AirQualityIndexDto getByStationId(long stationId) {
         giosService.getAndSaveAirQualityIndexByStationId(stationId);
         return airQualityIndexMapper.mapToAirQualityDto(airQualityIndexRepository.getByStationApiId(stationId));
     }
-//
-//    @Transactional
-//    public void delete(long id) {
-//        airQualityIndexRepository.deleteById(id);
-//    }
+
+    @Transactional
+    public void delete(long id) {
+        airQualityIndexRepository.deleteById(id);
+    }
 }

@@ -1,6 +1,5 @@
 package com.alert.app.backend.domain;
 
-import com.alert.app.backend.status.AirQualityStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

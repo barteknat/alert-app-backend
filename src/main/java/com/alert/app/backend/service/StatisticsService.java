@@ -8,6 +8,7 @@ import com.alert.app.backend.status.StatisticsStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class StatisticsService {
         return statisticsMapper.mapToStatisticsDtoList(statisticsRepository.findAll());
     }
 
+    @Transactional
     public void create(StatisticsStatus status, String remarks) {
         statisticsRepository.save(
                 Statistics.builder()
@@ -29,5 +31,10 @@ public class StatisticsService {
                         .date(LocalDateTime.now())
                         .remarks(remarks)
                         .build());
+    }
+
+    @Transactional
+    public void delete(long statisticsId) {
+        statisticsRepository.deleteById(statisticsId);
     }
 }

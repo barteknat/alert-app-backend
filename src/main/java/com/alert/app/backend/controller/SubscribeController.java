@@ -17,15 +17,15 @@ public class SubscribeController {
 
     private final SubscribeService subscribeService;
 
-    @GetMapping("/all")
-    public List<SubscribeDto> getAll() {
-        return subscribeService.getAll();
-    }
-
-//    @GetMapping(value = "/{id}")
-//    public SubscribeDto getById(@PathVariable long id) {
-//        return service.getById(id);
+//    @GetMapping("/all")
+//    public List<SubscribeDto> getAll() {
+//        return subscribeService.getAll();
 //    }
+
+    @GetMapping("/allById")
+    public List<SubscribeDto> getAllByUserId(@RequestParam long userId) {
+        return subscribeService.getAllByUserId(userId);
+    }
 
     @GetMapping
     public SubscribeDto getByUserIdAndCity(@RequestParam long userId, @RequestParam String city) {

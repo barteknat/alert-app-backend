@@ -1,10 +1,9 @@
 package com.alert.app.backend.api.gios.controller;
 
+import com.alert.app.backend.api.facade.ApiFacade;
 import com.alert.app.backend.api.gios.dto.GiosApiAirQualityDto;
 import com.alert.app.backend.api.gios.dto.GiosApiSensorDto;
 import com.alert.app.backend.api.gios.dto.GiosApiStationDto;
-import com.alert.app.backend.api.gios.service.GiosService;
-import com.alert.app.backend.exception.UpdateException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,20 +15,20 @@ import java.util.List;
 @RequestMapping("/v1/gios")
 public class GiosController {
 
-    private final GiosService giosService;
+    private final ApiFacade apiFacade;
 
     @GetMapping("/stations")
-    public List<GiosApiStationDto> setAllStations() throws UpdateException {
-        return giosService.getAndSaveAllStations();
+    public List<GiosApiStationDto> setAllStations() {
+        return apiFacade.getAllAirQualityStations();
     }
 
-    @GetMapping("/sensors")
-    public List<GiosApiSensorDto> getAndSaveSensorsByStationId(@RequestParam long stationId) {
-        return giosService.getAndSaveSensorsByStationId(stationId);
-    }
+//    @GetMapping("/sensors")
+//    public List<GiosApiSensorDto> getAndSaveSensorsByStationId(@RequestParam long stationId) {
+//        return apiFacade.getSensorsByStationId(stationId);
+//    }
 
-    @GetMapping("/airQuality")
-    public GiosApiAirQualityDto getAndSaveAirQualityByStationId(@RequestParam long stationId) {
-        return giosService.getAndSaveAirQualityIndexByStationId(stationId);
-    }
+//    @GetMapping("/airQuality")
+//    public GiosApiAirQualityDto getAndSaveAirQualityByStationId(@RequestParam long stationId) {
+//        return apiFacade.getAirQualityIndexByStationId(stationId);
+//    }
 }
