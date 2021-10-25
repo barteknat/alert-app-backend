@@ -32,9 +32,4 @@ public class StatisticsService {
                         .remarks(remarks)
                         .build());
     }
-
-    @Transactional
-    public void delete(long statisticsId) {
-        statisticsRepository.deleteById(statisticsId);
-    }
 }

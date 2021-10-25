@@ -1,9 +1,7 @@
 package com.alert.app.backend.mapper;
 
 import com.alert.app.backend.domain.Statistics;
-import com.alert.app.backend.domain.Subscribe;
 import com.alert.app.backend.dto.StatisticsDto;
-import com.alert.app.backend.dto.SubscribeDto;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

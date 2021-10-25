@@ -7,7 +7,6 @@ import com.alert.app.backend.repository.AirQualitySensorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -18,13 +17,12 @@ public class AirQualitySensorService {
     private final AirQualitySensorRepository airQualitySensorRepository;
     private final GiosService giosService;
 
+    public List<AirQualitySensorDto> getAll() {
+        return airQualitySensorMapper.mapToSensorDtoList(airQualitySensorRepository.findAll());
+    }
+
     public List<AirQualitySensorDto> getAllByStationId(long stationId) {
         giosService.getAndSaveSensorsByStationId(stationId);
         return airQualitySensorMapper.mapToSensorDtoList(airQualitySensorRepository.getByStationApiId(stationId));
-    }
-
-    @Transactional
-    public void delete(long id) {
-        airQualitySensorRepository.deleteById(id);
     }
 }

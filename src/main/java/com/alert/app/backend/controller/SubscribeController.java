@@ -17,10 +17,10 @@ public class SubscribeController {
 
     private final SubscribeService subscribeService;
 
-//    @GetMapping("/all")
-//    public List<SubscribeDto> getAll() {
-//        return subscribeService.getAll();
-//    }
+    @GetMapping("/all")
+    public List<SubscribeDto> getAll() {
+        return subscribeService.getAll();
+    }
 
     @GetMapping("/allById")
     public List<SubscribeDto> getAllByUserId(@RequestParam long userId) {

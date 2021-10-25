@@ -18,9 +18,4 @@ public class AirQualityStationController {
     public List<AirQualityStationDto> getAll() {
         return airQualityStationService.getAll();
     }
-
-//    @DeleteMapping(value = "/{id}")
-//    public void delete(@PathVariable int id) {
-//        airQualityStationService.delete(id);
-//    }
 }

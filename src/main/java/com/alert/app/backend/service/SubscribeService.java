@@ -53,6 +53,7 @@ public class SubscribeService {
         User user = userRepository.getById(userId);
         AirQualityStation airQualityStation = airQualityStationRepository.getByCityLike(city);
         WeatherStation weatherStation = weatherStationRepository.getDistinctFirstByCityOrderByIdDesc(city);
+        subscribe.setUserEmail(user.getEmail());
         subscribe.setCity(airQualityStation.getCity());
         subscribe.setUser(user);
         subscribe.setAirQualityStation(airQualityStation);

@@ -17,20 +17,15 @@ public class UserController {
 
     private final UserService userService;
 
-//    @GetMapping("/all")
-//    public List<UserDto> getAll() {
-//        return userService.getAll();
-//    }
+    @GetMapping("/all")
+    public List<UserDto> getAll() {
+        return userService.getAll();
+    }
 
     @GetMapping
     public UserDto getByEmail(@RequestParam String email) {
         return userService.getByEmail(email);
     }
-
-//    @GetMapping("/name")
-//    public UserDto getByUsername(@RequestParam String username) {
-//        return userService.getByUsername(username);
-//    }
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
     public UserDto create(@RequestBody UserDto userDto) throws WrongException {

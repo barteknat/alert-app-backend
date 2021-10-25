@@ -13,6 +13,7 @@ public class SubscribeMapper {
     public SubscribeDto mapToSubscribeDto(Subscribe subscribe) {
         return SubscribeDto.builder()
                 .id(subscribe.getId())
+                .userEmail(subscribe.getUserEmail())
                 .city(subscribe.getCity())
                 .build();
     }

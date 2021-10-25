@@ -18,17 +18,17 @@ public class GiosController {
     private final ApiFacade apiFacade;
 
     @GetMapping("/stations")
-    public List<GiosApiStationDto> setAllStations() {
+    public List<GiosApiStationDto> getAndSetAllStations() {
         return apiFacade.getAllAirQualityStations();
     }
 
-//    @GetMapping("/sensors")
-//    public List<GiosApiSensorDto> getAndSaveSensorsByStationId(@RequestParam long stationId) {
-//        return apiFacade.getSensorsByStationId(stationId);
-//    }
+    @GetMapping("/sensors")
+    public List<GiosApiSensorDto> getAndSetSensorsByStationId(@RequestParam long stationId) {
+        return apiFacade.getSensorsByStationId(stationId);
+    }
 
-//    @GetMapping("/airQuality")
-//    public GiosApiAirQualityDto getAndSaveAirQualityByStationId(@RequestParam long stationId) {
-//        return apiFacade.getAirQualityIndexByStationId(stationId);
-//    }
+    @GetMapping("/airQuality")
+    public GiosApiAirQualityDto getAndSetAirQualityByStationId(@RequestParam long stationId) {
+        return apiFacade.getAirQualityIndexByStationId(stationId);
+    }
 }

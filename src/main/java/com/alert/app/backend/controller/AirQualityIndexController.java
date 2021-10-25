@@ -14,18 +14,13 @@ public class AirQualityIndexController {
 
     private final AirQualityIndexService airQualityIndexService;
 
-//    @GetMapping("/all")
-//    public List<AirQualityIndexDto> getAll() {
-//        return airQualityIndexService.getAll();
-//    }
+    @GetMapping("/all")
+    public List<AirQualityIndexDto> getAll() {
+        return airQualityIndexService.getAll();
+    }
 
     @GetMapping()
     public AirQualityIndexDto getByStationId(@RequestParam long stationId) {
         return airQualityIndexService.getByStationId(stationId);
     }
-
-//    @DeleteMapping(value = "/{id}")
-//    public void delete(@PathVariable long id) {
-//        airQualityIndexService.delete(id);
-//    }
 }

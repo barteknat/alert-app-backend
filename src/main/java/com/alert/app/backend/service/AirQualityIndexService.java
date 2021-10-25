@@ -7,7 +7,6 @@ import com.alert.app.backend.repository.AirQualityIndexRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -25,10 +24,5 @@ public class AirQualityIndexService {
     public AirQualityIndexDto getByStationId(long stationId) {
         giosService.getAndSaveAirQualityIndexByStationId(stationId);
         return airQualityIndexMapper.mapToAirQualityDto(airQualityIndexRepository.getByStationApiId(stationId));
-    }
-
-    @Transactional
-    public void delete(long id) {
-        airQualityIndexRepository.deleteById(id);
     }
 }

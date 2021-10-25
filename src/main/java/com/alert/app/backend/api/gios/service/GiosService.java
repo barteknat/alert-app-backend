@@ -89,7 +89,7 @@ public class GiosService {
                 airQualityIndexRepository.deleteById(id);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
         GiosApiAirQualityDto giosApiAirQualityDto = giosClient.getGiosAirQuality(stationId);
         AirQualityStation airQualityStation = airQualityStationRepository.getByStationApiId(stationId);

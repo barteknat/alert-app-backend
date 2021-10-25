@@ -6,7 +6,6 @@ import com.alert.app.backend.repository.AirQualityStationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -18,10 +17,5 @@ public class AirQualityStationService {
 
     public List<AirQualityStationDto> getAll() {
         return airQualityStationMapper.mapToStationDtoList(airQualityStationRepository.findAll());
-    }
-
-    @Transactional
-    public void delete(long id) {
-        airQualityStationRepository.deleteById(id);
     }
 }

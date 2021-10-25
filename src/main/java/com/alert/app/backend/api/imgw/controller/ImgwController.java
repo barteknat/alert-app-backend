@@ -16,7 +16,7 @@ public class ImgwController {
     private final ApiFacade apiFacade;
 
     @GetMapping("/stations")
-    public List<ImgwApiStationDto> setAllStations() {
+    public List<ImgwApiStationDto> getAndSetAllStations() {
         return apiFacade.getAllWeatherStations();
     }
 }

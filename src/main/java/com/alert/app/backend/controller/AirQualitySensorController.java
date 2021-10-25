@@ -14,13 +14,13 @@ public class AirQualitySensorController {
 
     private final AirQualitySensorService airQualitySensorService;
 
+    @GetMapping("/all")
+    public List<AirQualitySensorDto> getAll() {
+        return airQualitySensorService.getAll();
+    }
+
     @GetMapping
     public List<AirQualitySensorDto> getAllByStationId(@RequestParam long stationId) {
         return airQualitySensorService.getAllByStationId(stationId);
     }
-
-//    @DeleteMapping(value = "/{id}")
-//    public void delete(@PathVariable long id) {
-//        airQualitySensorService.delete(id);
-//    }
 }

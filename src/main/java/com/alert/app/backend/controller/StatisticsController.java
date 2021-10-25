@@ -16,8 +16,8 @@ public class StatisticsController {
 
     private final StatisticsService statisticsService;
 
-//    @GetMapping("/all")
-//    public List<StatisticsDto> getAll() {
-//        return statisticsService.getAll();
-//    }
+    @GetMapping
+    public List<StatisticsDto> getAll() {
+        return statisticsService.getAll();
+    }
 }

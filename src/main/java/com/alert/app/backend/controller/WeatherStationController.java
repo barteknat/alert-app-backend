@@ -14,10 +14,10 @@ public class WeatherStationController {
 
     private final WeatherStationService weatherStationService;
 
-//    @GetMapping("/all")
-//    public List<WeatherStationDto> getAll() {
-//        return weatherStationService.getAll();
-//    }
+    @GetMapping("/all")
+    public List<WeatherStationDto> getAll() {
+        return weatherStationService.getAll();
+    }
 
     @GetMapping
     public WeatherStationDto getByCity(@RequestParam String city) {
