@@ -14,7 +14,7 @@ public class UpdateStations {
     private final GiosService giosService;
     private final ImgwService imgwService;
 
-//    @Scheduled(fixedDelay = 10000)
+    @Scheduled(cron = "0 0 7 * * *")
     public void updateStations() throws UpdateException {
         imgwService.getAndSaveAllStations();
         giosService.getAndSaveAllStations();

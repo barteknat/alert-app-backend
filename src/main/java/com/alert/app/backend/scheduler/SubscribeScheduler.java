@@ -3,7 +3,6 @@ package com.alert.app.backend.scheduler;
 import com.alert.app.backend.api.gios.service.GiosService;
 import com.alert.app.backend.domain.AirQualityIndex;
 import com.alert.app.backend.domain.Subscribe;
-import com.alert.app.backend.mail.domain.Mail;
 import com.alert.app.backend.mail.service.MailCreatorService;
 import com.alert.app.backend.mail.service.MailSendingService;
 import com.alert.app.backend.repository.AirQualityIndexRepository;
@@ -26,8 +25,7 @@ public class SubscribeScheduler {
     private final MailSendingService mailSendingService;
     private final MailCreatorService mailCreatorService;
 
-    //    @Scheduled(cron = "0 0 8 * * *")
-//    @Scheduled(fixedDelay = 10000)
+    @Scheduled(cron = "0 0 8 * * *")
     public void checkSubscribes() {
         if (subscribeRepository.findAll().isEmpty()) return;
         List<Subscribe> subscribes = subscribeRepository.findAll();
