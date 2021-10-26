@@ -15,7 +15,9 @@ To run application, clone this backend and frontend (link above) code from GitHu
 For backend (runs first):
 - open project and set local MySQL database and database user according to application.properties
 - for enable sending alert e-mails of subscribed cities:
+  
   -> set your gmail login and password in application.properties
+  
   -> enable less secure apps to access your gmail account
 - build the project
 - start the application by running main method in AlertApplication class (app is using local server 8080)
