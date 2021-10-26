@@ -9,9 +9,4 @@ public interface AirQualityIndexRepository extends JpaRepository<AirQualityIndex
 
     AirQualityIndex getByStationApiId(long stationId);
     AirQualityIndex getDistinctFirstByStationApiIdOrderByIdDesc(long stationId);
-//    AirQualityIndex getDistinctFirstByStationApiId(long stationId);
-//    AirQualityIndex getByStationApiIdOrderByIdDesc(long stationId);
-//    AirQualityIndex getByIdAndStationApiIdOrderByIdDesc(long id, long id2);
-//    List<AirQualityIndex> getAllByStationApiIdOrderByDateDesc(long stationId);
-
 }

@@ -31,16 +31,17 @@ class ImgwControllerTestSuite {
     @Test
     void shouldGetAndSetAllStations() throws Exception {
         //Given
-        List<ImgwApiStationDto> imgwApiStationDtoList = Arrays.asList(ImgwApiStationDto.builder()
-                .id_stacji("1")
-                .stacja("test")
-                .temperatura("1")
-                .predkosc_wiatru("1")
-                .kierunek_wiatru("1")
-                .wilgotnosc_wzgledna("1")
-                .suma_opadu("1")
-                .cisnienie("1")
-                .build());
+        List<ImgwApiStationDto> imgwApiStationDtoList = Arrays.asList(
+                ImgwApiStationDto.builder()
+                        .id_stacji("1")
+                        .stacja("test")
+                        .temperatura("1")
+                        .predkosc_wiatru("1")
+                        .kierunek_wiatru("1")
+                        .wilgotnosc_wzgledna("1")
+                        .suma_opadu("1")
+                        .cisnienie("1")
+                        .build());
         when(apiFacade.getAllWeatherStations()).thenReturn(imgwApiStationDtoList);
 
         //When & Then

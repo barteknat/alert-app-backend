@@ -33,11 +33,12 @@ class GiosControllerTestSuite {
     @Test
     void shouldGetAndSetAllStations() throws Exception {
         //Given
-        List<GiosApiStationDto> giosApiStationDtoList = Arrays.asList(GiosApiStationDto.builder()
-                .id(1)
-                .stationName("test")
-                .addressStreet("test")
-                .build());
+        List<GiosApiStationDto> giosApiStationDtoList = Arrays.asList(
+                GiosApiStationDto.builder()
+                        .id(1)
+                        .stationName("test")
+                        .addressStreet("test")
+                        .build());
         when(apiFacade.getAllAirQualityStations()).thenReturn(giosApiStationDtoList);
 
         //When & Then
@@ -53,10 +54,11 @@ class GiosControllerTestSuite {
     @Test
     void shouldGetAndSetSensorsByStationId() throws Exception {
         //Given
-        List<GiosApiSensorDto> giosApiSensorDtoList = Arrays.asList(GiosApiSensorDto.builder()
-                .id(1)
-                .stationId(1)
-                .build());
+        List<GiosApiSensorDto> giosApiSensorDtoList = Arrays.asList(
+                GiosApiSensorDto.builder()
+                        .id(1)
+                        .stationId(1)
+                        .build());
         when(apiFacade.getSensorsByStationId(1)).thenReturn(giosApiSensorDtoList);
 
         //When & Then

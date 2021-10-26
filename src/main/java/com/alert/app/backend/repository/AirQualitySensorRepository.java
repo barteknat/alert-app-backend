@@ -10,4 +10,5 @@ import java.util.List;
 public interface AirQualitySensorRepository extends JpaRepository<AirQualitySensor, Long> {
 
     List<AirQualitySensor> getByStationApiId(long stationId);
+    AirQualitySensor findByStationApiId(long stationId);
 }

@@ -26,13 +26,11 @@ class GiosMapperTestSuite {
                 .districtName("test")
                 .provinceName("test")
                 .build();
-
         GiosApiCityDto giosApiCityDto = GiosApiCityDto.builder()
                 .id(1)
                 .name("test")
                 .commune(giosApiCommuneDto)
                 .build();
-
         GiosApiStationDto giosApiStationDto = GiosApiStationDto.builder()
                 .id(1)
                 .stationName("test")
@@ -59,12 +57,10 @@ class GiosMapperTestSuite {
                 .paramCode("test")
                 .idParam(1)
                 .build();
-
         GiosApiPollutionValueDto giosApiPollutionValueDto = GiosApiPollutionValueDto.builder()
                 .date(LocalDateTime.now())
                 .value(1)
                 .build();
-
         GiosApiSensorDto giosApiSensorDto = GiosApiSensorDto.builder()
                 .id(1)
                 .stationId(1)
@@ -91,7 +87,6 @@ class GiosMapperTestSuite {
                 .id(1)
                 .indexLevelName("test")
                 .build();
-
         GiosApiAirQualityDto giosApiAirQualityDto = GiosApiAirQualityDto.builder()
                 .stCalcDate(LocalDateTime.now())
                 .stIndexLevel(giosApiAirQualityLevelDto)

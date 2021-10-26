@@ -28,14 +28,6 @@ public class UserService {
         return userMapper.mapToUserDtoList(userRepository.findAll());
     }
 
-    public UserDto getByUsername(String username) {
-        try {
-            return userMapper.mapToUserDto(userRepository.getByUsername(username));
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
     public UserDto getByEmail(String email) {
         try {
             return userMapper.mapToUserDto(userRepository.getByEmail(email));
