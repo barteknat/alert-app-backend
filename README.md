@@ -24,5 +24,5 @@ For backend (runs first):
   
 For frontend (runs second):
 - open and build the project
-- start the application by running main method in AlertFrontApplication class (app is using local server 8080)
+- start the application by running main method in AlertFrontApplication class (app is using local server 8081)
 - open your browser on localhost:8081
